@@ -3,7 +3,7 @@ var rolldice = function() {
 }
 
 function player(throwdice, actingscore, totalscore) {
-  this.diceroll =throwdice
+  this.diceroll = throwdice
   this.actingscore = actingscore;
   this.totalscore = totalscore;
 }
@@ -23,30 +23,50 @@ player.prototype.hold = function() {
   alert(" Player has Held the game, next player turn ! ");
 }
 $(document).ready(function() {
-      $("button#begin").click(function(event) {
-            event.preventDefault();
-            $(".playercontainer").show();
-            $(".introduction").hide();
-            var firstplayername = $("input#1stplayer").val();
-            $("h2#1stplayer").text(firstplayername + " :");
-            var secondplayername = $("input#2ndplayer").val();
-            $("h2#2ndplayer").text(secondplayername + " :");
-            $("button#1stplayer-roll").click(function(event) {
-              firstplayer.throw = rolldice();
-              
-              $("#1stplayer-hold").text(firstplayer.roll);
-              firstplayer.roll = rolldice();
-              $("#roundtotal1").text(firstplayer.actingscore);
-            })
-            $("button#2ndplayerroll").click(function(event) {
-              secondplayer.roll = rollwdice();
-              $("#die-roll-2").text(playerName2.roll);
-              secondplayer.rollone();
-              $("#roundtotal2").text(secondplayer.actingscore);
-            })
-            $("button#1stplayer-hold").click(function(event){
-          firstplayer.hold();
+  $("button#begin").click(function(event) {
+    event.preventDefault();
+    $(".playercontainer").show();
+    $(".introduction").hide();
+    var firstplayername = $("input#1stplayer").val();
+    $("h2#1stplayer").text(firstplayername + " :");
+    var secondplayername = $("input#2ndplayer").val();
+    $("h2#2ndplayer").text(secondplayername + " :");
+    $("button#1stplayer-roll").click(function(event) {
+      firstplayer.diceroll = rolldice();
 
-        });
+      $("#1stplayerroll").text(firstplayer.diceroll);
+      firstplayer.firstroll();
+      $("#1stplayerroundscore").text(firstplayer.actingscore);
+
+      $("#totalscore1").text(firstplayer.totalscore);
+    })
+    $("button#1stplayer-hold").click(function(event) {
+      firstplayer.hold();
+      $("#totalscore1").text(firstplayer.totalscore);
+    });
+    $("button#2ndplayer-roll").click(function(event) {
+      secondplayer.diceroll = rolldice();
+      $("#2ndplayerroll").text(secondplayer.diceroll);
+      secondplayer.firstroll();
+      $("#2ndplayerroundscore").text(secondplayer.actingscore);
+
+    })
+
+    $("button#2ndplayer-hold").click(function(event) {
+      secondplayer.hold();
+      $("#totalscore2").text(secondplayer.totalscore);
+    });
+    $("button#newroll").click(function(event) {
+      event.preventDefault();
+      $(".playercontainer").hide();
+      $("#1stplayer-roll").empty();
+      $("#1stplayeroundscore").empty();
+      $("#totalscore1").empty();
+      $("#2ndplayerroll").empty();
+      $("#2ndplayerroundscore").empty();
+      $("#totalscore2").empty();
+      $(".introduction").show();
+    });
+
   });
 });
